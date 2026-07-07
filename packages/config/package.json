@@ -1,0 +1,7 @@
+{
+  "name": "@isletmeos/config",
+  "version": "0.1.0",
+  "private": true,
+  "files": ["tsconfig"]
+}
+

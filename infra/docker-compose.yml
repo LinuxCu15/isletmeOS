@@ -1,0 +1,24 @@
+name: isletmeos
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: isletmeos-postgres
+    restart: unless-stopped
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-isletmeos}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-isletmeos}
+      POSTGRES_DB: ${POSTGRES_DB:-isletmeos}
+    volumes:
+      - isletmeos_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-isletmeos} -d ${POSTGRES_DB:-isletmeos}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  isletmeos_postgres_data:
+
